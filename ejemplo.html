@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <title>Formulario con vectores paralelos</title>
+</head>
+<body>
+ <h1>Formulario de artículos</h1>
+
+ <!-- Formulario -->
+ <form id="formulario">
+   Nombre: <input type="text" id="nombre"><br><br>
+   Cantidad: <input type="number" id="cantidad"><br><br>
+   Precio: <input type="number" id="precio"><br><br>
+   <button type="button" id="btnAgregar">Agregar</button>
+   <button type="button" id="btnMostrar">Mostrar listado</button>
+ </form>
+
+ <h2>Listado</h2>
+ <table border="1">
+   <thead>
+     <tr>
+       <th>Nombre</th>
+       <th>Cantidad</th>
+       <th>Precio</th>
+     </tr>
+   </thead>
+   <tbody id="tabla"></tbody>
+ </table>
+
+ <script>
+   // ===== VECTORES PARALELOS =====
+   const nombres = [];
+   const cantidades = [];
+   const precios = [];
+
+   // ===== REFERENCIAS (getElementById / querySelector) =====
+   const inputNombre = document.getElementById('nombre');
+   const inputCantidad = document.querySelector('#cantidad'); // querySelector por selector CSS
+   const inputPrecio = document.getElementById('precio');
+   const tabla = document.getElementById('tabla');
+
+   // ===== EVENTOS =====
+   document.getElementById('btnAgregar').addEventListener('click', () => {
+     // Tomar valores
+     const nombre = inputNombre.value;
+     const cantidad = parseInt(inputCantidad.value);
+     const precio = parseFloat(inputPrecio.value);
+
+     // Guardar en vectores paralelos
+     nombres.push(nombre);
+     cantidades.push(cantidad);
+     precios.push(precio);
+
+     // Limpiar campos
+     inputNombre.value = '';
+     inputCantidad.value = '';
+     inputPrecio.value = '';
+     inputNombre.focus();
+   });
+
+   document.getElementById('btnMostrar').addEventListener('click', () => {
+     // Limpiar tabla
+     tabla.innerHTML = '';
+
+     // Recorrer vectores
+     for (let i = 0; i < nombres.length; i++) {
+       const fila = `<tr>
+                       <td>${nombres[i]}</td>
+                       <td>${cantidades[i]}</td>
+                       <td>${precios[i]}</td>
+                     </tr>`;
+       tabla.innerHTML += fila;
+     }
+   });
+ </script>
+</body>
+</html>
